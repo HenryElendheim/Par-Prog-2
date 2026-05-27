@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Schema;
 
 namespace Par_Prog_2
 {
@@ -13,7 +14,9 @@ namespace Par_Prog_2
         public string Author;
         public string Actor;
 
-        public BookFilmInfo(string title, string year, string description, string author, string actor)
+        private List<BookFilmInfo> info = new List<BookFilmInfo>();
+
+        public BookFilmInfo(string title = "Default", string year = "Default", string description = "Default", string author = "Default", string actor = "Default")
         {
             Title = title;
             Year = year;
@@ -22,14 +25,42 @@ namespace Par_Prog_2
             Actor = actor;
         }
 
-        public void PrintInfo()
+        public void Run()
         {
-            Console.WriteLine($"tittel: {Title}\n" +
-                $"ÅR: {Year}\n" +
-                $"Beskrivelse: {Description}\n" +
-                $"Forfatter/Regissør: {Author}\n" +
-                $"Skuespillere: {Actor}");
-        }
+            while (true)
+            {
+                Console.WriteLine("hva er tittelen på boka?");
+                string title = Console.ReadLine();
 
+                Console.WriteLine("hvilken år kom det ut");
+                string year = Console.ReadLine();
+
+                Console.WriteLine("skriv kort beskrivelse");
+                string description = Console.ReadLine();
+
+                Console.WriteLine("hvem er forfatteren/regisør?");
+                string author = Console.ReadLine();
+
+                Console.WriteLine("hvem er skuespilleren");
+                string actor = Console.ReadLine();
+
+                BookFilmInfo value = new BookFilmInfo(title, year, description, author, actor);
+
+                info.Add(value);
+
+                Console.WriteLine($"Det er så mange bøker/filmer i listen: {info.Count}");
+                foreach (var infoValue in info)
+                {
+                    Console.WriteLine($"\nTittel: {infoValue.Title}\n" +
+                                      $"År: {infoValue.Year}\n" +
+                                      $"Beskrivelse: {infoValue.Description}\n" +
+                                      $"Forfatter/Regissør: {infoValue.Author}\n" +
+                                      $"Skuespillere: {infoValue.Actor}");
+                }
+                Console.WriteLine("\n\nTrykk en tast for å legge til flere...");
+                Console.ReadKey();
+                Console.Clear();
+            }
+        }
     }
 }
